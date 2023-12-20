@@ -1,0 +1,65 @@
+
+{% load static %}
+<!-- Modal -->
+<div class="modal fade" id="sizeModal" tabindex="-1" role="dialog" aria-labelledby="sizeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sizeModalLabel">PRODUCT SIZE GUIDE</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    style="width: 32px;height: 32px;">
+                    <span aria-hidden="true"><i class="ti-close"></i></span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <h4>SIZE GUIDE </h4>
+                <p>
+                    All clothing is in UK sizing, designed to fit to the following body measurements. <br>
+                    Please note garment measurments will vary depending on style.
+                </p>
+                
+                <div class="d-flex flex-wrap justify-content-center">
+                    
+                    {% if product.subcategory.size_chart %}
+                    <div class="column">
+                        <div class="thumb">
+                            <img src="{{product.subcategory.size_chart.url}}" alt="size guide" class="img-fluid" style="width:400px;max-width: 100%;">
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="column w-100">
+                        <div class="text-left">
+
+                            <div class="table-container table-responsive mt-4">
+                                <table class="table table-bordered text-dark mx-auto" style="width: auto;">
+                                    <tr>
+                                        <th>Size</th>
+                                        <th>Waist</th>
+                                        <th>Rise</th>
+                                        <th>Thighs</th>
+                                        <th>Inseam Length</th>
+                                        <th>Outseam Length</th>
+                                        <th>Bottom Hem</th>
+                                    </tr>
+                                    {% for size in object.get_sizes %}
+                                    <tr>
+                                        <td>{{size.size.name}}</td>
+                                        <td>{{size.waist|default:"-"}}</td>
+                                        <td>{{size.rise|default:"-"}}</td>
+                                        <td>{{size.thighs|default:"-"}}</td>
+                                        <td>{{size.inseem_length|default:"-"}}</td>
+                                        <td>{{size.length|default:"-"}}</td>
+                                        <td>{{size.bottom_size|default:"-"}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

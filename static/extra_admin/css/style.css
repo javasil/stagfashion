@@ -1,0 +1,17 @@
+.field-waist input,
+.field-rise input,
+.field-thighs input,
+.field-length input,
+.field-inseem_length input,
+.field-bottom_size input {
+    width: 50px;
+}
+.field-item_code input {
+    width: 100px;
+}
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    font-weight: 600;
+    color: #000;
+}

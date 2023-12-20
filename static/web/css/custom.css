@@ -1,0 +1,57 @@
+#div_id_product_option > div {
+    display: flex;
+    flex-wrap: wrap;
+}
+#div_id_product_option .form-check {
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+#div_id_product_option .form-check input:checked + label {
+    font-weight: bold;
+    color: #000000;
+    border-bottom: 2px solid #000;
+}
+#div_id_product_option .form-check label {
+    padding: 0 3px;
+    font-weight: 600;
+    color: #000;
+}
+#div_id_product_option .form-check label.disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+#div_id_product_option .label {
+    margin-bottom: 10px;
+    margin-right: 16px;
+    background: #cccccc1c;
+    padding: 6px 10px;
+}
+
+
+[type=radio]:checked+label:before, [type=radio]:not(:checked)+label:before {
+    display: none;
+}
+[type=radio]:checked+label, [type=radio]:not(:checked)+label {
+    padding-left: 0;
+}
+[type=radio]:checked+label:after, [type=radio]:not(:checked)+label:after {
+    content: '';
+    width: 34px;
+    height: 2px;
+    background: #000000;
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    border-radius: 0;
+    -webkit-transition: .2s;
+    transition: .2s;
+    transform: translateX(-50%);
+    top: unset;
+    display: none;
+}
+b, strong {
+    font-weight: 500;
+}
+.form-control {
+    font-size: 14px;
+}

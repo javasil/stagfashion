@@ -1,0 +1,87 @@
+{% load static %}
+<div class="w3-ch-sideBar left w3-bar-block w3-card-2 w3-animate-left" style="display:none;left:0;" id="Sidemenu">
+    <div class="rightMenu-scroll">
+        <div class="d-flex align-items-center justify-content-between slide-head py-3 px-3">
+            <h4 class="cart_heading fs-md mb-0">Menu</h4>
+            <button onclick="closeSidemenu()" class="close_slide"><i class="ti-close"></i></button>
+        </div>
+
+        <div class="p-4">
+
+            <div class="single_filter_card mb-2">
+                <h5><a href="/">Home</a></h5>
+            </div>
+
+            <div class="single_filter_card mb-2">
+                <h5><a href="{% url 'web:product_list' %}">Products</a></h5>
+            </div>
+
+            <div class="single_filter_card mb-2">
+                <h5><a href="{% url 'web:about' %}">About Us</a></h5>
+            </div>
+
+            <div class="single_filter_card mb-2">
+                <h5><a href="{% url 'web:contact' %}">Contact</a></h5>
+            </div>
+
+            {% for category in categories %}
+            <div class="single_filter_card mb-2">
+                <h5>
+                    <a href="{{category.get_absolute_url}}">{{category.name}}</a>
+                    {% if category.get_subcategories %}
+                    <a href="#{{category.slug}}" data-toggle="collapse" class="collapsed"
+                        aria-expanded="false" role="button">
+                        <i class="accordion-indicator ti-plus"></i>
+                    </a>
+                    {% endif %}
+                </h5>
+                {% if category.get_subcategories %}
+                <div class="collapse" id="{{category.slug}}"
+                    data-parent="#{{category.slug}}-categories">
+                    <div class="card-body">
+                        <div class="inner_widget_link">
+                            <ul class="m-0 p-0">
+                                {% for subcategory in category.get_subcategories %}
+                                <li>
+                                    <a href="{{subcategory.get_absolute_url}}">{{subcategory.name}}
+                                        <span>{{subcategory.get_productcount}}</span>
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <div class="single_filter_card mb-2">
+                <h5><a href="{% url 'web:privacy_policy' %}">Privacy Policy</a></h5>
+            </div>
+
+            <div class="single_filter_card mb-2">
+                <h5><a href="{% url 'web:terms_and_conditions' %}">Terms of Use</a></h5>
+            </div>
+
+            <div class="single_filter_card mb-2">
+                <h5><a href="{% url 'web:cookies_policy' %}">Cookies Policy</a></h5>
+            </div>
+
+            <div class="single_filter_card mb-2">
+                <h5><a href="{% url 'web:refund_policy' %}">Refund Policy</a></h5>
+            </div>
+
+
+        </div>
+        
+        <div class="p-4 mt-5">
+            <ul class="list-inline">
+                {% for s in socials %}
+                <li class="list-inline-item p-0 border-0"><a href="{{s.link}}" target="_blank"><i class="lni {{s.media}}"></i></a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+    </div>
+</div>

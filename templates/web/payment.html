@@ -1,0 +1,78 @@
+{% extends 'web/base.html' %}
+{% load static custom_filters thumbnail humanize %}
+
+
+{% block content %}
+
+<div class="gray py-3">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="colxl-12 col-lg-12 col-md-12">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="/">Home</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Checkout</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<section class="middle">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+				<div class="text-center d-block mb-5">
+					<h2>Payment</h2>
+				</div>
+			</div>
+		</div>
+
+		{% if cart_items %}
+
+		<div class="row justify-content-between">
+
+			<!-- Sidebar -->
+			<div class="col-12 col-lg-4 col-md-12 mx-auto">
+
+
+				<div class="card mb-4 gray">
+					<div class="card-body p-4">
+						<ul class="list-group list-group-sm list-group-flush-y list-group-flush-x">
+							<li class="list-group-item d-flex text-dark fs-sm ft-regular">
+								<span>Subtotal</span> <span
+									class="ml-auto text-dark ft-medium">{{order.subtotal|intcomma|get_currency:request.user}}</span>
+							</li>
+							<li class="list-group-item d-flex text-dark fs-sm ft-regular">
+								<span>Shipping</span> <span
+									class="ml-auto text-dark ft-medium">{{order.shipping|intcomma|get_currency:request.user}}</span>
+							</li>
+							<li class="list-group-item d-flex text-dark fs-sm ft-regular">
+								<span>Total</span> <span
+									class="ml-auto text-dark ft-medium">{{order.payable|intcomma|get_currency:request.user}}</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<button class="btn btn-block btn-dark mb-3" type="submit">Make Payment</button>
+			</div>
+
+		</div>
+
+		{% else %}
+		<div class="row">
+			<div class="col-10 mx-auto text-center">
+				<p>There is nothing in your cart to Checkout</p>
+			</div>
+		</div>
+		{% endif %}
+
+
+	</div>
+</section>
+
+{% endblock %}

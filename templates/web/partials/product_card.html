@@ -1,0 +1,53 @@
+{% load static thumbnail custom_filters humanize %}
+
+<div class="product_grid card">
+    <div class="badge position-absolute ft-regular ab-left text-upper">{{product.badge|default:""}}</div>
+    <div class="card-body">
+
+        {% if product.status == "LaunchingSoon" %}
+        <div class="ptag launching_soon">
+            <div class="launching_soon_text">Launching Soon</div>
+        </div>
+
+        {% elif product.status == "OutofStock" %}
+        <div class="ptag out_of_stock">
+            <div class="out_of_stock_text">Out of Stock</div>
+        </div>
+        {% endif %}
+     
+
+        <div class="shop_thumb position-relative">
+            <a class="card-img-top d-block overflow-hidden " href="{{product.get_absolute_url}}">
+                <img class="card-img-top" src="{{product.image.medium.url}}" alt="...">
+            </a>
+        </div>
+
+        {% if product.get_size_codes %}
+        <div class="size_block">
+            <div class="size-row">
+                {% for size in product.get_size_codes %}
+                <span class="size-item text-dark" data-id="{{size.pk}}"><strong>{{size}}</strong></span>
+                {% endfor %}
+            </div>
+            <a class="text-center" href="{{product.image.url}}" data-lightbox="{{product.slug}}" data-title="{{product.name}}" class="size_add_to_cart">QUICK VIEW</a>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <div class="card-footer b-0">
+        <div class="text-left">
+            <h5 class="fw-bolder fs-sm mb-0 lh-1 mb-1">
+                <a href="{{product.get_absolute_url}}" class="text"><strong>{{product.name}}</strong></a>
+            </h5>
+            <h5 class="fw-bold fs-sm mb-0 lh-1 mb-1">
+                {% if product.offer_price %}
+                <a href="{{product.get_absolute_url}}" class="text mr-1"><del>{{product.sale_price|intcomma|get_currency:request.user}}</del></a>
+                <a href="{{product.get_absolute_url}}" class="text text-danger">{{product.offer_price|intcomma|get_currency:request.user}}</a>
+                {% else %}
+                <a href="{{product.get_absolute_url}}" class="text text-danger">{{product.sale_price|intcomma|get_currency:request.user}}</a>
+                {% endif %}
+            </h5>
+        </div>
+    </div>
+</div>

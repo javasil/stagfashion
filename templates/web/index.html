@@ -1,0 +1,74 @@
+{% extends 'web/base.html' %}
+{% load static custom_filters humanize %}
+
+{% block content %}
+
+<!-- ============= Hero Banner  Start=================== -->
+<section id="slider" class="p-0">
+	<svg id="navigator" style="position: absolute;" xmlns="http://www.w3.org/2000/svg" width="129.362" height="38.094"><path fill="#000" fill-rule="evenodd" d="M73.474 158.75a8199.13 8199.13 0 0 0-3.241 9c-.326.91 1.176 1.25 5.526 1.25h5.973l2.794-7.75c1.537-4.262 2.995-8.312 3.241-9 .326-.91-1.176-1.25-5.526-1.25h-5.973l-2.794 7.75m25.01-4.058c-3.434 8.22-3.401 8.308 3.158 8.308h5.859l2.102-6 2.102-6h-5.839c-5.786 0-5.853.034-7.382 3.692m35.49-1.442c-.54 1.238-3.631 9.675-6.867 18.75l-5.885 16.5 5.502.303c3.027.167 5.728.078 6.003-.197.69-.69 13.273-35.414 13.273-36.628 0-.538-2.485-.978-5.521-.978-4.769 0-5.656.307-6.505 2.25m33.514-1-6.847 19.045-6.398 17.794 6.056-.294 6.057-.295 2.912-8c1.601-4.4 4.644-12.838 6.762-18.75l3.85-10.75h-5.971c-3.871 0-6.13.44-6.421 1.25m-59.995 12-4.468 12.583c-2.214 6.233-4.025 11.521-4.025 11.75 0 .229 2.648.417 5.883.417 4.744 0 5.982-.339 6.39-1.75.278-.963 2.342-6.812 4.586-13L119.94 163h-6.001c-3.898 0-6.157.438-6.446 1.25m70.646 6.339c-1.177 3.074-2.139 5.774-2.139 6 0 .226 2.658.411 5.906.411h5.906l1.488-4.25c.819-2.338 1.809-5.037 2.201-6 .632-1.551.034-1.75-5.255-1.75h-5.968l-2.139 5.589m-36 3c-1.177 3.074-2.139 5.774-2.139 6 0 .226 2.658.411 5.906.411h5.906l1.488-4.25c.819-2.338 1.809-5.037 2.201-6 .632-1.551.034-1.75-5.255-1.75h-5.968l-2.139 5.589m-61.531.661c-.857 2.338-2.433 6.633-3.504 9.546l-1.947 5.295 6.078-.295 6.077-.296 3.337-9c1.835-4.95 3.34-9.113 3.344-9.25.004-.137-2.656-.25-5.91-.25h-5.918l-1.557 4.25m105.615 8.797-2.176 6.047 6.13-.297c6.017-.292 6.152-.361 7.334-3.797 2.999-8.722 3.292-8-3.244-8h-5.868l-2.176 6.047" style="fill:#0006cf" transform="translate(-70.19 -151)"/></svg>
+
+	<div class="home-slider margin-bottom-0">
+		{% for slider in sliders %}
+		<div data-background-image="{{slider.image.url}}" data-mobile-image="{{slider.mini_image.url}}" class="item">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="home-slider-desc text-center">
+							{% if slider.name %}
+							<div class="home-slider-title mb-4">
+								<h1 class="mb-1 ft-bold lg-heading" style="color: {{slider.text_color}};">{{slider.name|default:""}}</h1>
+							</div>
+							{% endif %}
+							<a href="{{slider.button_link}}" class="btn stretched-link borders bg-black">{{slider.button_text}}
+								<i class="lni lni-arrow-right ml-2"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+
+</section>
+
+
+<section class="middle">
+	<div class="container">
+
+		<div class="row justify-content-center">
+			<div class="col-12 col-md-10 col-lg-10 col-xl-10 text-center">
+				<p class="ft-regular fs-sm text-dark">
+					Introducing 'Nostalgia Revived,' our latest collection that pays homage to the vibrant aesthetics and sleek profiles of
+					the early 2010s. This collection breathes new life into denim styles while embracing bold graphic prints that resonate
+					with the spirit of the era. 
+				</p>
+			</div>
+		</div>
+
+	</div>
+</section>
+
+<ul class="nav nav-tabs b-0 d-flex align-items-center justify-content-center simple_tab_links mb-4 pt-4" >
+	<li class="nav-item" role="presentation"><a class="nav-link active" href="javascript:void(0);">Featured</a></li>
+	{% for category in categories %}
+	<li class="nav-item" role="presentation"><a class="nav-link" href="{{category.get_absolute_url}}">{{category.name}}</a></li>
+	{% endfor %}
+	<li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'web:product_list' %}">View All</a></li>
+</ul>
+
+<section class="space min pt-0">
+	<div class="container-fluid">
+
+		<div class="row rows-products">
+			{% for product in object_list %}
+			<div class="col-xl-3 col-lg-3 col-md-6 col-6 p-0">
+				{% include 'web/partials/product_card.html' %}
+			</div>
+			{% endfor %}
+		</div>
+
+	</div>
+</section>
+
+{% endblock %}

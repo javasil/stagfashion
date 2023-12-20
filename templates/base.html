@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	{% load static %}
+	<meta charset="utf-8" />
+	<meta name="author" content="Prospello" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Primary Meta Tags -->
+	<title>{% block title %}STAGMENFASHION | MEN'S CLOTHING STORE{% endblock %}</title>
+	<meta name="title" content="STAGMENFASHION | MEN'S CLOTHING STORE" />
+	<meta name="description"
+		content="Your one-stop destination for premium men's clothing. Explore our exquisite collection of handcrafted shirts, designed with precision and style in mind" />
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://stagmenfashion.com" />
+	<meta property="og:title" content="STAGMENFASHION | MEN'S CLOTHING STORE" />
+	<meta property="og:description"
+		content="Your one-stop destination for premium men's clothing. Explore our exquisite collection of handcrafted shirts, designed with precision and style in mind" />
+	<meta property="og:image" content="https://metatags.io/images/meta-tags.png" />
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image" />
+	<meta property="twitter:url" content="https://stagmenfashion.com" />
+	<meta property="twitter:title" content="STAGMENFASHION | MEN'S CLOTHING STORE" />
+	<meta property="twitter:description"
+		content="Your one-stop destination for premium men's clothing. Explore our exquisite collection of handcrafted shirts, designed with precision and style in mind" />
+	<meta property="twitter:image" content="https://metatags.io/images/meta-tags.png" />
+
+
+	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'web/img/favicon/apple-touch-icon.png' %}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'web/img/favicon/favicon-32x32.png' %}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'web/img/favicon/favicon-16x16.png' %}">
+	<link rel="manifest" href="{% static 'web/img/favicon/site.webmanifest' %}">
+	<link rel="mask-icon" href="{% static 'web/img/favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#0006cf">
+	<meta name="theme-color" content="#ffffff">
+
+	<link href="{% static 'web/css/styles.css' %}?v=file_version" rel="stylesheet">
+	<link href="{% static 'web/css/custom.css' %}?v=file_version" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div class="preloader"></div>
+
+	<div id="main-wrapper">
+
+		{% include 'web/partials/header.html' %}
+
+
+		<div class="gray py-3">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="colxl-12 col-lg-12 col-md-12">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="/">Home</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Authentication</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<section class="middle">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 mx-auto py-5">
+						{% block content %}
+
+
+						{% endblock %}
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		{% include 'web/partials/footer.html' %}
+		{% include 'web/partials/search.html' %}
+		{% include 'web/partials/cart.html' %}
+		{% include 'web/partials/menu.html' %}
+
+		<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+		<a href="https://wa.me/917736444674/" class="whatsapp_link"><img src="{% static 'web/img/whatsapp.png' %}" alt=""></a>
+
+	</div>
+
+
+	<script type="text/javascript" src="{% static 'web/js/jquery.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'web/js/popper.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'web/js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'web/js/ion.rangeSlider.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'web/js/slick.js' %}"></script>
+	<script type="text/javascript" src="{% static 'web/js/slider-bg.js' %}"></script>
+	<script type="text/javascript" src="{% static 'web/js/lightbox.js' %}"></script>
+	<script type="text/javascript" src="{% static 'web/js/smoothproducts.js' %}"></script>
+	<script type="text/javascript" src="{% static 'web/js/snackbar.min.js' %}"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+	<script type="text/javascript" src="{% static 'web/js/script.js' %}?v=file_version"></script>
+	<script type="text/javascript" src="{% static 'web/js/custom.js' %}?v=file_version"></script>
+	<script src="//code.tidio.co/73uzjb86nbayvgkhprrsr5eh7am6hqzn.js" async></script>
+
+	{% block javascript %}{% endblock %}
+
+</body>
+
+</html>

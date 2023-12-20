@@ -1,0 +1,187 @@
+{% extends 'web/base.html' %}
+{% load static custom_filters crispy_forms_tags thumbnail humanize %}
+
+
+{% block content %}
+<!-- ======== Top Breadcrubms ========= -->
+<div class="gray py-3">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="colxl-12 col-lg-12 col-md-12">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="/">Home</a></li>
+						<li class="breadcrumb-item"><a href="{% url 'web:product_list' %}">Products</a></li>
+						<li class="breadcrumb-item active" aria-current="page">{{object}}</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ======== Top Breadcrubms ========= -->
+
+<!-- ======== Product Detail ========= -->
+<section class="middle">
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-xl-5 col-lg-5 col-md-12 col-sm-12">
+				<div class="sp-wrap product-slider">
+					<a href="{{object.image.url}}" data-lightbox="roadtrip">
+						<img src="{{object.image.medium.url}}" alt="">
+					</a>
+					{% for item in object.get_images %}
+					<a href="{{item.image.url}}" data-lightbox="roadtrip">
+						<img src="{{item.image.medium.url}}" alt="">
+					</a>
+					{% endfor %}
+				</div>
+
+				<div class='slider-nav'>
+					<div><img src="{{object.image.medium.url}}"></div>
+					{% for item in object.get_images %}
+					<div><img src="{{item.image.medium.url}}"></div>
+					{% endfor %}
+				</div>
+
+			</div>
+
+			<div class="col-xl-7 col-lg-7 col-md-12 col-sm-12">
+				<div class="prd_details">
+
+					<div class="prt_01 mb-2">
+						<div class="badge ft-regular ab-left text-upper pl-0">{{object.badge|default:""}}</div>
+					</div>
+
+					<div class="prt_02 mb-3">
+						<h5 class="ft-bold mb-3">{{object.name}}</h5>
+						<div class="text-left">
+							<div class="star-rating align-items-center d-flex justify-content-left mb-1 p-0">
+								<i class="fas fa-star filled"></i>
+								<i class="fas fa-star filled"></i>
+								<i class="fas fa-star filled"></i>
+								<i class="fas fa-star filled"></i>
+								<i class="fas fa-star filled"></i>
+							</div>
+							<div class="elis_rty">
+								{% if object.offer_price %}
+								<span class="ft-bold fs-lg text text-dark mr-1"><del>{{object.sale_price|intcomma|get_currency:request.user}}</del></span>
+								<span class="ft-bold fs-lg text text-danger">{{object.offer_price|intcomma|get_currency:request.user}}</span>
+								{% else %}
+								<span class="ft-bold fs-lg text text-danger">{{object.sale_price|intcomma|get_currency:request.user}}</span>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+
+					{% if object.description %}
+					<div class="prt_03 mb-4">
+						<p>
+							{{object.description|linebreaks}}
+						</p>
+					</div>
+					{% endif %}
+
+					<div class="prt_04 mb-4">
+						<p class="d-flex align-items-center mb-1">Category:<strong
+								class="fs-sm text-dark ft-medium ml-1">{{object.subcategory}}</strong></p>
+					</div>
+
+					<!-- Button trigger modal -->
+					<button type="button" class="btn chart_btn" data-toggle="modal" data-target="#sizeModal">
+						<svg focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="tag_image"
+							style="height: 20px;margin-right:10px">
+							<path d="M0 0h24v24H0V0z" fill="none"></path>
+							<path
+								d="M21.11 2.89A3.02 3.02 0 0 0 18.95 2h-5.8c-.81 0-1.58.31-2.16.89L7.25 6.63 2.9 10.98a3.06 3.06 0 0 0 0 4.32l5.79 5.8a3.05 3.05 0 0 0 4.32.01l8.09-8.1c.58-.58.9-1.34.9-2.16v-5.8c0-.81-.32-1.59-.89-2.16zM20 10.85c0 .28-.12.54-.32.74l-3.73 3.74-4.36 4.36c-.41.41-1.08.41-1.49 0l-2.89-2.9-2.9-2.9a1.06 1.06 0 0 1 0-1.49l8.1-8.1c.2-.2.46-.3.74-.3l5.8-.01A1.05 1.05 0 0 1 20 5.05v5.8zM16 6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z">
+							</path>
+						</svg>
+						Size Guide
+					</button>
+
+
+					{% if product.item_status == "Available" %}
+					<div class="prt_05 mb-5">
+						<div class="mb-7">
+							<form action="" method="post" class="cart_form reload">
+								{% csrf_token %}
+
+								<div id="div_id_product_option" class="form-group">
+									<label class=" requiredField">
+										{{ form.product_option.label }}
+										<span class="asteriskField">*</span>
+									</label>
+
+									<div class="">
+										{% for radio in form.product_option %}
+										<div class="form-check">
+											<input type="radio" class="form-check-input" name="product_option" {{radio.data.value|check_stock}} value="{{ radio.data.value }}" required id="{{radio.id_for_label}}">
+											<label  class="form-check-label {{radio.data.value|check_stock}}" for="{{radio.id_for_label}}">{{radio.choice_label}}</label>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+
+								<div class="notice mb-3">
+									<span class="d-block"><strong>O</strong> - Denote Oversized Apparels</span>
+									<span class="d-block"><strong>R</strong> - Denote Regular Size Apparels</span>
+								</div>
+
+								<div class="flexitem flex-nowrap">
+									{{form.quantity|as_crispy_field}}
+									<div id="div_id_submit" class="form-group">
+										<button type="submit" class="btn custom-height bg-dark px-3 w-100">ADD TO BAG</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					{% elif product.item_status == "LaunchingSoon" %}
+					<div class="prt_05 mb-5">
+						<button type="button" class="btn custom-height bg-dark px-3">LAUNCHING SOON</button>
+					</div>
+					{% endif %}
+
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row" style="margin-top: 80px;">
+			<div class="col-12">
+				<div class="disclaimers border p-4">
+					<div class="mb-2">
+						<h6>Exchange on Return</h6>
+						<p>
+							We are pleased to accommodate exchanges for items within a 15-day window from the date of
+							receipt. Regrettably, if more than 15 days have elapsed since your purchase, we are unable
+							to process an exchange. Contact us at +91 7736444674 for any product related assistance.
+						</p>
+					</div>
+					<div class="b-2">
+						<h6>Free delivery on orders over ₹2999</h6>
+						<p> Free delivery with our standard delivery service on all orders above ₹2999 in india</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</section>
+
+
+{% include 'web/partials/sizeguide.html' %}
+
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+	$(document).ready(function () {
+		$('#div_id_product_option input:radio:not(:disabled):first').prop('checked', true);
+	});
+</script>
+{% endblock %}

@@ -1,0 +1,166 @@
+{% extends 'web/base.html' %}
+{% load static custom_filters humanize %}
+
+{% block content %}
+<!-- ======== Top Breadcrubms ========= -->
+<div class="gray py-3">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="colxl-12 col-lg-12 col-md-12">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="/">Home</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Track Orders</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ======== Top Breadcrubms ========= -->
+
+<!-- ======== Dashboard Detail ========= -->
+<section class="middle">
+	<div class="container">
+		
+		<div class="row align-items-start justify-content-between">
+			<div class="col-md-6 mx-auto">
+				<div class="cart_action py-4">
+					<form class="form m-0 p-0" method="get" action="">
+						<div class="row">
+							<div class="col-md-8">
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Order ID ..." name="query" value="">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group mb-0">
+									<button type="submit" class="btn d-block full-width btn-dark">Search Orders</button>
+								</div>
+							</div>
+						</div>				
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="row align-items-start justify-content-between">
+			<div class="col-md-6 mx-auto">
+
+				{% for obj in object_list %}
+				<div class="ord_list_wrap border mb-4 mfliud">
+
+					<div class="ord_list_head gray d-flex align-items-center justify-content-between px-3 py-3">
+						<div class="olh_flex">
+							<p class="m-0 p-0"><span class="text-muted">Order Number</span></p>
+							<h6 class="mb-0 ft-medium">{{obj.order_id}}</h6>
+						</div>
+						<div class="olh_flex">
+							<a href="javascript:void(0);" class="btn btn-sm btn-dark">{{obj.get_status_display}}</a>
+						</div>
+					</div>
+
+					{% if obj.get_items %}
+					<div class="row">
+						<div class="col-md-12">
+							<div class="ord_list_body text-left">
+								{% for item in obj.get_items %}
+								<div class="row align-items-center justify-content-center m-0 py-4 br-bottom">
+									<div class="col-xl-12 col-lg-12 col-md-12 col-12">
+										<div class="cart_single d-flex align-items-start mfliud-bot">
+											<div class="cart_selected_single_thumb">
+												<a href="{{item.product_option.product.get_absolute_url}}">
+													<img src="{{item.product_option.product.image.medium.url}}"
+														width="75" class="img-fluid rounded" alt=""></a>
+											</div>
+											<div class="cart_single_caption pl-3">
+												<h4 class="product_title fs-sm ft-medium mb-1 lh-1">
+													{{item.product_option.product.name}}</h4>
+												<p class="mb-2">
+													<span class="text-dark medium">SIZE: {{item.product_option}}</span>,
+													<span class="text-dark medium">QTY: {{item.quantity}}</span>
+												</p>
+												<h4 class="fs-sm ft-bold mb-0 lh-1">
+													{{item.price|intcomma|get_currency:request.user}}
+												</h4>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								{% endfor %}
+
+							</div>
+						</div>
+						
+						{% if obj.get_updates %}
+						<div class="col-md-12 ">
+							<div class="hts-100 p-3">
+								<ul class="group">
+									{% for update in obj.get_updates %}
+									<li class="d-flex align-items-center text-success"><i class="lni lni-checkmark-circle mr-2"></i><h6 class="m-0">{{update.title}}</h6></li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+						{% endif %}
+
+					</div>
+					{% endif %}
+
+
+					<div class="ord_list_footer d-flex align-items-center justify-content-between br-top px-3">
+						<div class="py-3">
+							<h5 class="mb-0 fs-sm ft-bold">Total: {{obj.payable|intcomma|get_currency:request.user}}</h5>
+						</div>
+					</div>
+
+				</div>
+				{% empty %}
+				<div class="ord_list_wrap mb-4 mfliud">
+					<p>No Orders Found</p>
+				</div>
+				{% endfor %}
+
+
+				{% if is_paginated %}
+				<nav aria-label="Page navigation">
+					<ul class="pagination justify-content-center mb-0">
+						{% if page_obj.has_previous %}
+						<li class="page-item">
+							<a class="btn stretched-link borders m-auto"
+								href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+						{% endif %}
+						{% for i in page_obj.paginator.page_range %}
+						{% if page_obj.number == i %}
+						<li class="page-item active">
+							<span class="btn stretched-link borders m-auto">{{ i }} <span class="sr-only"></span></span>
+						</li>
+						{% else %}
+						<li class="page-item">
+							<a class="btn stretched-link borders m-auto" href="?page={{ i }}">{{ i }}</a>
+						</li>
+						{% endif %}
+						{% endfor %}
+						{% if page_obj.has_next %}
+						<li class="page-item">
+							<a class="btn stretched-link borders m-auto" href="?page={{ page_obj.next_page_number }}"
+								aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+						{% endif %}
+					</ul>
+				</nav>
+				{% endif %}
+
+			</div>
+		</div>
+
+	</div>
+</section>
+
+{% endblock %}

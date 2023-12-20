@@ -1,0 +1,71 @@
+{% load static %}
+<div class="top_banner">
+	<p>FREE SHIPPING TO INDIA ON ALL ORDERS ABOVE ₹2999</p>
+</div>
+
+<div class="header header-light dark-text">
+    <div class="container-fluid">
+        <nav id="navigation" class="navigation navigation-landscape">
+            <div class="nav-header">
+                <button class="navbtn" onclick="openSidemenu()">
+                    <svg height="25px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 12.32H22" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 18.32H22" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 6.32001H22" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <a class="nav-brand" href="/">
+                    <img src="{% static 'web/img/logo.png' %}" class="logo" alt="" />
+                </a>
+                <div class="mobile_nav">
+                    <ul>
+                        <li>
+                            <a href="#" onclick="openSearch()">
+                                <svg class="Icon Icon--search" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><path d="m18.031 16.617 4.283 4.282-1.415 1.415-4.282-4.283A8.96 8.96 0 0 1 11 20c-4.968 0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9a8.96 8.96 0 0 1-1.969 5.617Zm-2.006-.742A6.977 6.977 0 0 0 18 11c0-3.868-3.133-7-7-7-3.868 0-7 3.132-7 7 0 3.867 3.132 7 7 7a6.977 6.977 0 0 0 4.875-1.975l.15-.15Z" fill="#09121F"/></svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'web:track_orders' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="24" height="24" viewBox="0 0 368.666 368.666"><path d="M184.333 0C102.01 0 35.036 66.974 35.036 149.297c0 33.969 11.132 65.96 32.193 92.515 27.27 34.383 106.572 116.021 109.934 119.479l7.169 7.375 7.17-7.374c3.364-3.46 82.69-85.116 109.964-119.51 21.042-26.534 32.164-58.514 32.164-92.485C333.63 66.974 266.656 0 184.333 0zm101.462 229.355c-21.956 27.687-80.92 89.278-101.462 110.581-20.54-21.302-79.483-82.875-101.434-110.552-18.228-22.984-27.863-50.677-27.863-80.087C55.036 78.002 113.038 20 184.333 20c71.294 0 129.297 58.002 129.296 129.297 0 29.412-9.625 57.096-27.834 80.058z"/><path d="M184.333 59.265c-48.73 0-88.374 39.644-88.374 88.374s39.645 88.374 88.374 88.374 88.374-39.645 88.374-88.374-39.644-88.374-88.374-88.374zm0 156.748c-37.702 0-68.374-30.673-68.374-68.374 0-37.702 30.673-68.374 68.374-68.374s68.373 30.673 68.374 68.374c0 37.702-30.672 68.374-68.374 68.374z"/></svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="openCart()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+                                    <g clip-path="url(#a)"><path d="M20 22H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1Zm-1-2V4H5v16h14ZM9 6v2a3 3 0 1 0 6 0V6h2v2A5 5 0 1 1 7 8V6h2Z" fill="#09121F"/></g>
+                                    <defs><clipPath id="a"><path fill="#fff" d="M0 0h24v24H0z"/></clipPath></defs>
+                                </svg>
+                                <span class="dn-counter theme-bg" id="totalItems">{{cart_items|length}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="nav-menus-wrapper" style="transition-property: none;">
+             
+                <ul class="nav-menu nav-menu-social align-to-right">
+                    <li>
+                        <a href="#" onclick="openSearch()">
+                            <svg class="Icon Icon--search" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><path d="m18.031 16.617 4.283 4.282-1.415 1.415-4.282-4.283A8.96 8.96 0 0 1 11 20c-4.968 0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9a8.96 8.96 0 0 1-1.969 5.617Zm-2.006-.742A6.977 6.977 0 0 0 18 11c0-3.868-3.133-7-7-7-3.868 0-7 3.132-7 7 0 3.867 3.132 7 7 7a6.977 6.977 0 0 0 4.875-1.975l.15-.15Z" fill="#09121F"/></svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'web:track_orders' %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="24" height="24" viewBox="0 0 368.666 368.666"><path d="M184.333 0C102.01 0 35.036 66.974 35.036 149.297c0 33.969 11.132 65.96 32.193 92.515 27.27 34.383 106.572 116.021 109.934 119.479l7.169 7.375 7.17-7.374c3.364-3.46 82.69-85.116 109.964-119.51 21.042-26.534 32.164-58.514 32.164-92.485C333.63 66.974 266.656 0 184.333 0zm101.462 229.355c-21.956 27.687-80.92 89.278-101.462 110.581-20.54-21.302-79.483-82.875-101.434-110.552-18.228-22.984-27.863-50.677-27.863-80.087C55.036 78.002 113.038 20 184.333 20c71.294 0 129.297 58.002 129.296 129.297 0 29.412-9.625 57.096-27.834 80.058z"/><path d="M184.333 59.265c-48.73 0-88.374 39.644-88.374 88.374s39.645 88.374 88.374 88.374 88.374-39.645 88.374-88.374-39.644-88.374-88.374-88.374zm0 156.748c-37.702 0-68.374-30.673-68.374-68.374 0-37.702 30.673-68.374 68.374-68.374s68.373 30.673 68.374 68.374c0 37.702-30.672 68.374-68.374 68.374z"/></svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="openCart()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+                                <g clip-path="url(#a)"><path d="M20 22H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1Zm-1-2V4H5v16h14ZM9 6v2a3 3 0 1 0 6 0V6h2v2A5 5 0 1 1 7 8V6h2Z" fill="#09121F"/></g>
+                                <defs><clipPath id="a"><path fill="#fff" d="M0 0h24v24H0z"/></clipPath></defs>
+                            </svg>
+                            <span class="dn-counter theme-bg" id="totalItems">{{cart_items|length}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+<div class="clearfix"></div>

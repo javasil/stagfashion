@@ -1,0 +1,16 @@
+Django==4.2.5
+django-admin-interface==0.26.1
+django-admin-thumbnails==0.2.8
+django-colorfield==0.10.1
+django-extensions==3.2.3
+django-import-export==3.3.1
+easy-thumbnails
+Pillow==10.0.1
+python-decouple==3.8
+django-crispy-forms
+django-registration-redux
+crispy-bootstrap4
+django-import-export
+django-tables2
+
+# --index-url https://phonepe.mycloudrepo.io/public/repositories/phonepe-pg-sdk-python --extra-index-url https://pypi.org/simple phonepe_sdk
